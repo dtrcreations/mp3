@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MP3 Downloader</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1e2a78, #ff3c5f);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            width: 90%;
+            max-width: 600px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #1e2a78;
+            margin-bottom: 2rem;
+        }
+
+        .input-group {
+            display: flex;
+            margin-bottom: 1.5rem;
+        }
+
+        #url-input {
+            flex: 1;
+            padding: 12px;
+            border: 2px solid #1e2a78;
+            border-radius: 5px;
+            margin-right: 10px;
+            font-size: 16px;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .download-btn {
+            background: #1e2a78;
+            color: white;
+        }
+
+        .download-btn:hover {
+            background: #152058;
+        }
+
+        .social-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-btn {
+            padding: 10px 20px;
+            border-radius: 5px;
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .whatsapp-btn {
+            background: #25D366;
+        }
+
+        .telegram-btn {
+            background: #0088cc;
+        }
+
+        .result {
+            margin-top: 1.5rem;
+            text-align: center;
+        }
+
+        #status {
+            margin-bottom: 1rem;
+            color: #1e2a78;
+        }
+
+        #download-link {
+            display: none;
+            margin-top: 1rem;
+            padding: 12px 24px;
+            background: #28a745;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        .loading {
+            display: none;
+            width: 40px;
+            height: 40px;
+            margin: 20px auto;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #1e2a78;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>MP3 Downloader</h1>
+        <div class="input-group">
+            <input type="text" id="url-input" placeholder="Enter YouTube URL">
+            <button class="btn download-btn" onclick="downloadMP3()">Download</button>
+        </div>
+        <div class="result">
+            <div class="loading" id="loading"></div>
+            <p id="status"></p>
+            <a href="#" id="download-link" download>Download MP3</a>
+        </div>
+        <div class="social-buttons">
+            <a href="#" class="social-btn whatsapp-btn" onclick="shareWhatsApp()">
+                <i class="fab fa-whatsapp"></i>
+                Share on WhatsApp
+            </a>
+            <a href="#" class="social-btn telegram-btn" onclick="shareTelegram()">
+                <i class="fab fa-telegram"></i>
+                Share on Telegram
+            </a>
+        </div>
+    </div>
+
+    <script>
+        function downloadMP3() {
+            const urlInput = document.getElementById('url-input');
+            const loading = document.getElementById('loading');
+            const status = document.getElementById('status');
+            const downloadLink = document.getElementById('download-link');
+
+            if (!urlInput.value) {
+                status.textContent = 'Please enter a valid YouTube URL';
+                return;
+            }
+
+            loading.style.display = 'block';
+            status.textContent = 'Converting...';
+            downloadLink.style.display = 'none';
+
+            // Simulate API call with setTimeout
+            setTimeout(() => {
+                loading.style.display = 'none';
+                status.textContent = 'Conversion completed!';
+                downloadLink.style.display = 'inline-block';
+                downloadLink.href = '#'; // Replace with actual download link
+            }, 3000);
+        }
+
+        function shareWhatsApp() {
+            const url = encodeURIComponent(window.location.href);
+            const text = encodeURIComponent('Check out this awesome MP3 Downloader!');
+            window.open(`https://wa.me/?text=${text}%20${url}`);
+        }
+
+        function shareTelegram() {
+            const url = encodeURIComponent(window.location.href);
+            const text = encodeURIComponent('Check out this awesome MP3 Downloader!');
+            window.open(`https://t.me/share/url?url=${url}&text=${text}`);
+        }
+    </script>
+</body>
+</html>
